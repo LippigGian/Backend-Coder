@@ -1,0 +1,27 @@
+[
+	{
+		"title": "PC notebook",
+		"description": "Asus rog strix",
+		"price": 2500,
+		"thumbnail": "https://img.jpg",
+		"code": "CODE-002",
+		"stock": 4,
+		"id": 1
+	},
+	{
+		"nombre": "Gian",
+		"apellido": "Lippi",
+		"edad": 22,
+		"curso": "Backend",
+		"id": 2
+	},
+	{
+		"title": "Computadora",
+		"description": "Computadora 16gb RAM, core-i5, rtx-3070",
+		"price": 1500,
+		"thumbnail": "https://img.jpg",
+		"code": "CODE-001",
+		"stock": 4,
+		"id": 3
+	}
+]

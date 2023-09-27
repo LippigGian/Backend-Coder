@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Formulario de mascotas</h1>
+    <!-- Le aclaro la ruta y el tipo de metodo -->
+    <form action="/api/pets" method="POST">
+        <label>Nombre</label>
+        <!-- Al input hay que darle el mismo nombre que voy a recibir en pets.router.js -->
+        <input name="name">
+        <label>Especie</label>
+        <input name="especie">
+        <input type="submit">
+    </form>
+</body>
+</html>
