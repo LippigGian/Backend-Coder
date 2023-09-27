@@ -25,6 +25,8 @@ function middlewareNivelServicio(req,res,next){
     next();
 }
 
+
+
 //Para que podamos recibir distintos tipos de datosd y no solamente cadena de texto.
 //Asi podremos recibir arrays, arrays de objetos, etc.
 app.use(express.urlencoded({extended: true}));
