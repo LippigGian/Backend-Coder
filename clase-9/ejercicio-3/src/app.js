@@ -47,7 +47,7 @@ app.set("view engine", "handlebars")
 // })
 
 
-//Archivos estaticos
+//Archivos estaticos:
 
 /*
 Archivos estaticos
