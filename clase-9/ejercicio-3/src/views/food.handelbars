@@ -1,0 +1,15 @@
+<div>
+    <h1>Hola {{user.name}} que gusto verte</h1>
+    {{#if isAdmin}}
+    {{#each food}}
+    <div>
+        <p>{{this.name}}</p>
+        <p>{{this.price}}</p>
+    </div>
+    {{/each}}
+    {{#else}}
+    <p>No tienes permisos de administrador</p>
+    {{/if}}
+</div>
+{{!-- No hace falta aclarar que es dentro de la carpeta public por la configuracion previa que le hicimos --}}
+<script src="/js/index.js"></script>
