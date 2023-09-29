@@ -52,7 +52,15 @@ app.set("view engine", "handlebars")
 /*
 Archivos estaticos
 */
+
+//Middleware incorporado que es propio de express: No necesitamos trabajar su implementacion, ya viene aplicada por defecto.
 app.use("/static-files", express.static(`${__dirname}/public`));
 
 app.use("/",viewsRouter)
+
+//Middleware de manejo de erorres, siempre debe ir al final.
+app.use((err, req,res,next)=>{
+    console.log(err.message);
+    res.status(500).send({error: err.message});
+})
 app.listen(8080, ()=>console.log("Server running"))
