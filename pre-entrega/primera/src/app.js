@@ -1,5 +1,6 @@
 import express from "express";
 import routerProducts from "./routes/products.router.js"
+import routerCart from "./routes/carts.router.js";
 
 //Deberia implementar el router de productos en la ruta  /api/products
 
@@ -12,7 +13,7 @@ app.use("/api/products", routerProducts );
 
 //Para el carrito, el cual tendrá su router en /api/carts/, configurar dos rutas:
 
-//app.use("/api/carts", routerCarts);
+app.use("/api/carts", routerCart);
 
 /*
 import ProductManager from "./ProductManager.js";

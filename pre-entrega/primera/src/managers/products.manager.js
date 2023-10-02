@@ -63,9 +63,38 @@ export default class ProductManager {
     // console.log(products)
     fs.promises.writeFile(this.path, JSON.stringify(products, null, "\t"))
    }
+
+   deleteProducts = async(id) =>{
+    try {
+      const products = await this.getProducts();
+      const index = products.findIndex((product) => product.id === id);
+      console.log(index)
+      if (index !== -1) {
+        // console.log(`El indice es: ${indice} y el id es: ${products[indice].id}`);
+        products.splice(index, 1);
+      await  this.saveProducts(products)
+       return({status:"Succes", message: `Product ID: ${id} deleted succesfully ` }) 
+      //  res.send({status: "success", message: `Product ID: ${id} deleted succesfully ` });
+  
+        // await fs.promises.writeFile(
+        //   this.path,
+        //   JSON.stringify(products, null, "\t")
+        // );
+        // console.log(`El producto con id: ${id} fue eliminado con exito`);
+      } else {
+        return({status: "error", message: `Product ID: ${id} no se encontro ` })
+        // res.send({status: "error", message: `Product ID: ${id} no se encontro ` });
+        // console.log(`No se encontró ningun producto con el id ${productId}`);
+      }
+    } catch (error) {
+      console.log(error);  
+    }
+  }
+
 }
 
 /*
+
   addProduct = async (productos) => {
     try {
       //Primero obtengo todos los datos que se encuentren en el archivo (usuarios) hasta el momento.
@@ -92,3 +121,28 @@ export default class ProductManager {
     }
   };
   */
+
+  
+    
+// router.delete("/:pid", async (req,res)=>{
+//   const productId = parseInt(req.params.pid);
+//   const products = await productManager.getProducts();
+//   const index = products.findIndex((product) => product.id === productId);
+//   console.log(index)
+//   if (index !== -1) {
+//       // console.log(`El indice es: ${indice} y el id es: ${products[indice].id}`);
+//       products.splice(index, 1);
+//       productManager.saveProducts(products)
+//       res.send({status: "success", message: `Product ID: ${productId} deleted succesfully ` });
+
+//       // await fs.promises.writeFile(
+//       //   this.path,
+//       //   JSON.stringify(products, null, "\t")
+//       // );
+//       // console.log(`El producto con id: ${id} fue eliminado con exito`);
+//     } else {
+//       res.send({status: "error", message: `Product ID: ${productId} no se encontro ` });
+//       // console.log(`No se encontró ningun producto con el id ${productId}`);
+//     }
+// })
+

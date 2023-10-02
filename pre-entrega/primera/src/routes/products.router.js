@@ -1,6 +1,5 @@
 import { Router } from "express";
 import ProductManager from "../managers/products.manager.js"
-import CartManager from "../managers/cart.manager.js";
 
 const productManager = new ProductManager("./managers/files/productos.json")
 /*La ruta raíz GET / deberá listar todos los productos de la base. (Incluyendo la limitación ?limit del desafío anterior
@@ -73,6 +72,7 @@ Todos los campos son obligatorios, a excepción de thumbnails
 
 router.post("/", async (req,res)=>{
     const product = req.body;
+    console.log(product)
     const products = await productManager.getProducts();
     
     if(!product.title || !product.description ||!product.code || !product.price || !product.status || !product.stock || !product.category){
@@ -108,14 +108,65 @@ router.post("/",(req,res)=>{
 //a ruta PUT /:pid deberá tomar un producto y actualizarlo por los campos enviados desde body. NUNCA se debe actualizar o eliminar el id al momento de hacer dicha actualización.
 
 router.put("/:pid", async (req,res)=>{
-    const id = parseInt(req.params.pid);
-    console.log(id)
-    const products = await productManager.getproductById(id);
-    console.log(products)
-    res.send({status: "success", message: "User updated succesfully"})
+    const productActualizado = req.body;
+    const productId = parseInt(req.params.pid);
+    // console.log(id)
+    const products = await productManager.getProducts();
+    const index = products.findIndex(product => product.id === productId)
+    console.log(index)
+    if(index !== -1 && !productActualizado.id )
+    {   
+        // user.id = index+1;
+        //Hay una mejor manera para hacer que el id no se borre y es con el spread operator:
+        const newProduct = {id: productId, ...productActualizado}
+        products[index] = newProduct;
+        productManager.saveProducts(products)
+        res.send({status: "success", message: "Product updated succesfully"});
+    }else{
+        if(productActualizado.id){
+            //Error 404 que dice que no se encontro el id
+        return res.status(404).send({status:"error", error: "No se debe modificar el id"})
+        }
+        //Error 404 que dice que no se encontro el id
+        res.status(404).send({status:"error", error: "Product not found"})
+    }
+    // console.log(productActualizado)
+    // console.log(products)
+    // res.send({status: "success", message: "User updated succesfully"})
 })
 
 //La ruta DELETE /:pid deberá eliminar el producto con el pid indicado. 
+
+// router.delete("/:pid", async (req,res)=>{
+//     const productId = parseInt(req.params.pid);
+//     const products = await productManager.getProducts();
+//     const index = products.findIndex((product) => product.id === productId);
+//     console.log(index)
+//     if (index !== -1) {
+//         // console.log(`El indice es: ${indice} y el id es: ${products[indice].id}`);
+//         products.splice(index, 1);
+//         productManager.saveProducts(products)
+//         res.send({status: "success", message: `Product ID: ${productId} deleted succesfully ` });
+
+//         // await fs.promises.writeFile(
+//         //   this.path,
+//         //   JSON.stringify(products, null, "\t")
+//         // );
+//         // console.log(`El producto con id: ${id} fue eliminado con exito`);
+//       } else {
+//         res.send({status: "error", message: `Product ID: ${productId} no se encontro ` });
+//         // console.log(`No se encontró ningun producto con el id ${productId}`);
+//       }
+// })
+
+
+router.delete("/:pid", async (req,res)=>{
+    const productId = parseInt(req.params.pid);
+    const resp = await productManager.deleteProducts(productId);
+     res.send(resp);
+   
+})
+
 
 /*app.put("/users/:id",(req,res)=>{
     //Primero enviamos el id de usuario que queremos actualizar
