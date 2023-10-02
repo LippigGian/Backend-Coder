@@ -28,6 +28,7 @@ app.post("/users", (req,res)=>{
 
     //Este objeto lo vamos a enviar desde POSTMAN.
     const user = req.body;
+    console.log(user)
     //Validaciones. Validare en este caso que el cliente nos envie el nombre y el apellido.
     if(!user.first_name || !user.last_name)
     {
