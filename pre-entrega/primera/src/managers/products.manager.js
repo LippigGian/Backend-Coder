@@ -6,7 +6,6 @@ export default class ProductManager {
     this.path = path;
   }
 
-  //JSON.parse convierte cadena de texto en archivo JS
   getProducts = async (limit) => {
     try {
       const products = await promises.readFile(this.path, "utf-8");
@@ -36,28 +35,54 @@ export default class ProductManager {
       console.log(error);
     }
   };
-  // createUser = async (usuario) =>{
-  //   try{
-  //       //Primero obtengo todos los datos que se encuentren en el archivo (usuarios) hasta el momento.
-  //       //Aqui aplicamos la retulizacion de codigo:
-  //       const users = await this.getUsers();
-  //       //Ahora podremos crear nuestro nuevo usuario.
-  //       if(users.length === 0){
-  //         usuario.id = 1;
-  //       }else{
-  //         usuario.id = users[users.length -1].id +1
-  //       }
-  //       //insertamos el elemento o usuario
-  //     users.push(usuario)
 
-  //     //una vez que ya hemos terminado el procesamiento guardamos el arreglo dentro de nuestro archivo.
-  //     await fs.promises.writeFile(this.path, JSON.stringify(users, null, "\t"))
+  modifyProduct = async (producto, id)=>{
+    try {
+      const products = await this.getProducts();
+    const index = products.findIndex(product => product.id === id)
+    if(index !== -1 && !producto.id )
+    {   
+        const newProduct = {id: id, ...producto}
+        products[index] = newProduct;
+        this.saveProducts(products)
+        return({status:"success", message:"Product updated succesfully"})
+        
+    }else{
+        if(producto.id){
+            //Error 404 que dice que no se encontro el id
+        return ({status:"error", error: "No se debe modificar el id"})
+        }
+        //Error 404 que dice que no se encontro el id
+        return ({status:"error", error: "Product not found"})
+    }
+    } catch (error) {
+      console.log(error);
+    }
+    
 
-  //     return usuario;
-  //   }catch(error){
-  //     console.log(error)
-  //   }
-  // }
+  }
+  
+  createProduct = async(product) =>{
+    try {
+      
+    const products = await this.getProducts();
+    if(!product.title || !product.description ||!product.code || !product.price || !product.status || !product.stock || !product.category){
+            return ({error: "Todos los campos deben completarse"})
+ }
+  if(products.length === 0){
+      product.id = 1;
+    }else{
+      product.id = products[products.length -1].id +1
+    }
+  products.push(product)
+  this.saveProducts(products)
+  return(product)
+      
+    } catch (error) {
+      console.log(error);
+    }
+
+  }
 
   saveProducts = async (products) =>{
     // console.log(products)
@@ -70,21 +95,11 @@ export default class ProductManager {
       const index = products.findIndex((product) => product.id === id);
       console.log(index)
       if (index !== -1) {
-        // console.log(`El indice es: ${indice} y el id es: ${products[indice].id}`);
         products.splice(index, 1);
       await  this.saveProducts(products)
        return({status:"Succes", message: `Product ID: ${id} deleted succesfully ` }) 
-      //  res.send({status: "success", message: `Product ID: ${id} deleted succesfully ` });
-  
-        // await fs.promises.writeFile(
-        //   this.path,
-        //   JSON.stringify(products, null, "\t")
-        // );
-        // console.log(`El producto con id: ${id} fue eliminado con exito`);
       } else {
         return({status: "error", message: `Product ID: ${id} no se encontro ` })
-        // res.send({status: "error", message: `Product ID: ${id} no se encontro ` });
-        // console.log(`No se encontró ningun producto con el id ${productId}`);
       }
     } catch (error) {
       console.log(error);  
@@ -93,34 +108,6 @@ export default class ProductManager {
 
 }
 
-/*
-
-  addProduct = async (productos) => {
-    try {
-      //Primero obtengo todos los datos que se encuentren en el archivo (usuarios) hasta el momento.
-      //Aqui aplicamos la retulizacion de codigo:
-      const products = await this.getProducts();
-      //Ahora podremos crear nuestro nuevo usuario.
-      if (products.length === 0) {
-        productos.id = 1;
-      } else {
-        productos.id = products[products.length - 1].id + 1;
-      }
-      //insertamos el elemento o usuario
-      products.push(productos);
-
-      //una vez que ya hemos terminado el procesamiento guardamos el arreglo dentro de nuestro archivo.
-      await fs.promises.writeFile(
-        this.path,
-        JSON.stringify(products, null, "\t")
-      );
-
-      return productos;
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  */
 
   
     
