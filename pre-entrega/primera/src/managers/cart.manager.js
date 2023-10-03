@@ -20,6 +20,7 @@ export default class CartManager {
   saveCarts = async (cart) =>{
     fs.promises.writeFile(this.path, JSON.stringify(cart, null, "\t"))
    }
+
    //Obtener carritos por id
    getCartById = async (id) => {
     try {
@@ -34,6 +35,7 @@ export default class CartManager {
     }
   };
 
+  //Crear carrito nuevo
   createCart = async (cart) =>{
     const carts = await this.getCarts();
     cart.products=[];
@@ -48,6 +50,7 @@ export default class CartManager {
     return({status: "Success", message:"Carrito creado con exito"})
   }
 
+  //Agregar producto a carrito
   modifyCart = async (cartId, productId)=>{
     
 //Obtengo todos los carritos
@@ -64,21 +67,18 @@ if (cartIndex === -1) {
 //   return { error: "Carrito no encontrado" };
 }else{
     
-
-console.log(cartById)
-
  const indexProductCart = carts[cartIndex].products.findIndex(product => product.id == productId);
 if(indexProductCart !=-1)
 {
-//     carts[cartIndex].products[indexProductCart]=carts[cartIndex].products[indexProductCart].quantity++;
 carts[cartIndex].products[indexProductCart].quantity++;
-    console.log("entro en el if")
+this.saveCarts(carts)
+return({status:"Success", message: "producto incrementado en 1 unidad"})
 }else{
     carts[cartIndex].products.push({id:productId,quantity:1})
-    console.log("Entro en el else")
-}
-console.log(indexProductCart)
+    this.saveCarts(carts)
+    return({status:"Success", message: "producto nuevo agregado al carrito"})  
+} 
 
-cartManager.saveCarts(carts)
+
   }}
 }
