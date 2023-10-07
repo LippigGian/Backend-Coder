@@ -1,0 +1,23 @@
+{{!-- Crea una vista home.handlebars la cual contenga uina lñista de todos los productos agregados hasta el momento. --}}
+
+<p>Listado de productos:</p>
+    <ul>
+        {{#each array}}
+            <li>{{this.title}}</li>
+            <li>{{this.description}}</li>
+            <li>{{this.code}}</li>
+            <li>{{this.price}}</li>
+            <li>{{this.status}}</li>
+            <li>{{this.stock}}</li>
+            <li>{{this.category}}</li>
+            <li>{{this.thumbnails}}</li>
+            <li>{{this.id}}</li>
+
+
+        {{/each}}
+    </ul>
+    <br/>
+
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/home.js"></script>
