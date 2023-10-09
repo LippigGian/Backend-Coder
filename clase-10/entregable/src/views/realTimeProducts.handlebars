@@ -2,3 +2,35 @@
 Esta contendra la misma lista de productos, sin embargo, esta trabajara con websockets.
 Al trabajar con websockets, cada vez que creemos un nuevo producto, o bien cada vez que eliminemos un producto, se debe actualizar automaticamente en dicha vista la lista. --}}
 
+
+<h2 style="font-size: 24px; margin-top: 20px;">Crear nuevo producto:</h2>
+<form id="addProductForm" style="border: 1px solid #ccc; padding: 20px; margin-top: 10px; background-color: #f8f8f8; border-radius: 5px;">
+    <label for="producto" style="font-weight: bold;">Producto:</label>
+    <textarea id="productoAdd" name="productoAdd" required style="width: 100%; padding: 10px; margin-top: 5px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px;"></textarea>
+
+    <button type="submit" style="background-color: #007bff; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">Agregar Producto</button>
+</form>
+
+<h2 style="font-size: 24px; margin-top: 20px;">Eliminar producto:</h2>
+<form id="deleteProductForm" style="border: 1px solid #ccc; padding: 20px; margin-top: 10px; background-color: #f8f8f8; border-radius: 5px;">
+    <label for="productId" style="font-weight: bold;">ID del Producto a Eliminar:</label>
+    <input type="text" id="productDelete" name="productDelete" required style="width: 100%; padding: 10px; margin-top: 5px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px;">
+
+    <button type="submit" style="background-color: #007bff; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">Eliminar Producto</button>
+</form>
+
+<p style="font-weight: bold; margin-top: 20px;">Listado de productos:</p>
+<div id="listProducts">
+     {{#each array}}
+    <ul style="list-style: none; border: 1px solid #ccc; padding: 10px; margin-top: 10px; background-color: #f8f8f8; border-radius: 5px;">
+            <li>ID: {{this.id}}</li>
+            <li>Title: {{this.title}}</li>
+    </ul>
+       {{/each}}
+    <br/>
+</div>
+
+
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/home.js"></script>

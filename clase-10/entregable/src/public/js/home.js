@@ -1,52 +1,42 @@
-
 //Con este socket vamos a establecer la comunicacion con nuestro servidor (El handshake)
 const socket = io();
 
-//Enviar mensaje desde el cliente
-//Emitimos un evento, en este caso un mensaje
-socket.emit("message", "Hola es un mensaje desde el cliente");
+//Escuchar html:
+const formAdd = document.getElementById("addProductForm");
+const formDelete = document.getElementById("deleteProductForm");
+const listProducts = document.getElementById("listProducts");
+const listProductsDelete = document.getElementById("productId");
 
+// Listener submit del formulario agregar producto
+formAdd.addEventListener("submit", function (e) {
+  e.preventDefault();
+  //Obtener el valor del textarea para add product
+  const product = document.getElementById("productoAdd").value;
+  socket.emit("addProduct", product);
+  //Borrar contenido textArea:
+  document.getElementById("productoAdd").value = " ";
+});
 
-//Leer el evento mensaje del servidor
+//Listener submit del formulario eliminar producto por ID:
+formDelete.addEventListener("submit", function (e) {
+  e.preventDefault();
+  //Obtener el valor del textarea para delete product
+  const product = document.getElementById("productDelete").value;
+  socket.emit("deleteProduct", product);
+  //Borrar contenido textArea:
+  document.getElementById("productDelete").value = " ";
+});
 
-// socket.on("evento_socket_individual", data =>{    
-//     console.log(data);
-// });
-// socket.on("evento_todos_menos_actual", data => {
-//     console.log(data);
-// });
-// socket.on("evento_todos", data => {
-//     console.log(data);
-// });
-
-
-
-
-//Profesor
-
-
-
-
-// const form = document.getElementById('form')
-
-// const container = document.getElementById('container')
-
-
-// socket.on('showProducts', data => {
-//     container.innerHTML = ``
-
-//     data.forEach(prod => {
-//         container.innerHTML += `
-//             <ul>
-//                 <li>title: ${prod.title}</li> 
-//                 <li>description: ${prod.description}</li>
-//                 <li>code: ${prod.code}</li>
-//                 <li>price: ${prod.price}</li>
-//                 <li>status: ${prod.status}</li>
-//                 <li>stock: ${prod.stock}</li>
-//                 <li>category: ${prod.category}</li>
-//                 <li>id: ${prod.id}</li>
-//             </ul>
-//         `
-//     })
-// })
+socket.on("mostrartodo", (product) => {
+  console.log("entro al socke.on DEL FRONTEND");
+  console.log(product);
+  listProducts.innerHTML = " ";
+  product.forEach((prod) => {
+    listProducts.innerHTML += `
+        <ul style="list-style: none; border: 1px solid #ccc; padding: 10px; margin-top: 10px; background-color: #f8f8f8; border-radius: 5px;">
+        <li>ID: ${prod.id}</li>
+        <li>Title: ${prod.title}</li>
+</ul>
+    `;
+  });
+});

@@ -1,9 +1,17 @@
 {{!-- Crea una vista home.handlebars la cual contenga uina lñista de todos los productos agregados hasta el momento. --}}
+<p style="font-weight: bold; margin-top: 20px;">Listado de productos:</p>
+     {{#each array}}
+    <ul style="list-style: none; border: 1px solid #ccc; padding: 10px; margin-top: 10px; background-color: #f8f8f8; border-radius: 5px;">
+            <li>ID: {{this.id}}</li>
+            <li>Title: {{this.title}}</li>
+    </ul>
+       {{/each}}
+    <br/>
 
-<p>Listado de productos:</p>
-    <ul>
-        {{#each array}}
-            <li>{{this.title}}</li>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/home.js"></script>
+
+        {{!-- <li>{{this.title}}</li>
             <li>{{this.description}}</li>
             <li>{{this.code}}</li>
             <li>{{this.price}}</li>
@@ -11,13 +19,4 @@
             <li>{{this.stock}}</li>
             <li>{{this.category}}</li>
             <li>{{this.thumbnails}}</li>
-            <li>{{this.id}}</li>
-
-
-        {{/each}}
-    </ul>
-    <br/>
-
-
-<script src="/socket.io/socket.io.js"></script>
-<script src="/js/home.js"></script>
+            <li>{{this.id}}</li> --}}

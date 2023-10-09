@@ -1,142 +1,30 @@
 [
 	{
-		"title": "Producto de prueba",
-		"description": "Descripción del producto",
-		"code": "PROD123",
-		"price": 200000,
-		"status": true,
-		"stock": 100,
-		"category": "Electrónica",
-		"thumbnails": [
-			"ruta_imagen_1.jpg",
-			"ruta_imagen_2.jpg"
-		],
-		"id": 1
+		"title": " 3",
+		"id": 5
 	},
 	{
-		"title": "Producto de prueba",
-		"description": "Descripción del producto",
-		"code": "PROD123",
-		"price": 200000,
-		"status": true,
-		"stock": 100,
-		"category": "Electrónica",
-		"thumbnails": [
-			"ruta_imagen_1.jpg",
-			"ruta_imagen_2.jpg"
-		],
-		"id": 2
-	},
-	{
-		"title": "Producto de prueba",
-		"description": "Descripción del producto",
-		"code": "PROD123",
-		"price": 200000,
-		"status": true,
-		"stock": 100,
-		"category": "Electrónica",
-		"thumbnails": [
-			"ruta_imagen_1.jpg",
-			"ruta_imagen_2.jpg"
-		],
-		"id": 3
-	},
-	{
-		"id": 4,
-		"title": "Producto de prueba",
-		"description": "Descripción del producto",
-		"code": "PROD123",
-		"price": 200000,
-		"status": true,
-		"stock": 100,
-		"category": "Electrónica",
-		"thumbnails": [
-			"ruta_imagen_1.jpg",
-			"ruta_imagen_2.jpg"
-		]
-	},
-	{
-		"id": 5,
-		"title": "Producto de prueba",
-		"description": "Descripción del producto",
-		"code": "PROD123",
-		"price": 200000,
-		"status": true,
-		"stock": 100,
-		"category": "Electrónica",
-		"thumbnails": [
-			"ruta_imagen_1.jpg",
-			"ruta_imagen_2.jpg"
-		]
-	},
-	{
-		"title": "Producto de prueba",
-		"description": "Descripción del producto",
-		"code": "PROD123",
-		"price": 200000,
-		"status": true,
-		"stock": 100,
-		"category": "Electrónica",
-		"thumbnails": [
-			"ruta_imagen_1.jpg",
-			"ruta_imagen_2.jpg"
-		],
+		"title": " 1",
 		"id": 6
 	},
 	{
-		"title": "Producto de prueba",
-		"description": "Descripción del producto",
-		"code": "PROD123",
-		"price": 200000,
-		"status": true,
-		"stock": 100,
-		"category": "Electrónica",
-		"thumbnails": [
-			"ruta_imagen_1.jpg",
-			"ruta_imagen_2.jpg"
-		],
+		"title": " 1",
 		"id": 7
 	},
 	{
-		"title": "Producto de prueba",
-		"description": "Descripción del producto",
-		"code": "PROD123",
-		"price": 200000,
-		"status": true,
-		"stock": 100,
-		"category": "Electrónica",
-		"thumbnails": [
-			"ruta_imagen_1.jpg",
-			"ruta_imagen_2.jpg"
-		],
+		"title": "1",
 		"id": 8
 	},
 	{
-		"title": "Producto de prueba",
-		"description": "Descripción del producto",
-		"code": "PROD123",
-		"price": 200000,
-		"status": true,
-		"stock": 100,
-		"category": "Electrónica",
-		"thumbnails": [
-			"ruta_imagen_1.jpg",
-			"ruta_imagen_2.jpg"
-		],
+		"title": " 1",
 		"id": 9
 	},
 	{
-		"title": "Producto de prueba",
-		"description": "Descripción del producto",
-		"code": "PROD123",
-		"price": 200000,
-		"status": true,
-		"stock": 100,
-		"category": "Electrónica",
-		"thumbnails": [
-			"ruta_imagen_1.jpg",
-			"ruta_imagen_2.jpg"
-		],
+		"title": " 2",
 		"id": 10
+	},
+	{
+		"title": " 1\n",
+		"id": 11
 	}
 ]
