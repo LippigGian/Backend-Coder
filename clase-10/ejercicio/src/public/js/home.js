@@ -1,20 +1,11 @@
 const socket = io();
 
-//Primero me interesa obtener el input y la etiqueta "P"
-
 const input = document.getElementById("textbox");
 const log = document.getElementById("log");
 
-// input.addEventListener("keyup", evt => {
-//     const {key} = evt;
+//Mostrar todos los listados de productos:
 
-//     socket.emit("message1", key);
-// })
 
-// socket.on("log", data =>{
-//     //Recibe el evento log enviado por el servidor
-//     log.innerHTML+=data;
-// })
 
 input.addEventListener("keyup", evt => {
     if(evt.key =="Enter"){
