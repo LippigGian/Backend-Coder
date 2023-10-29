@@ -1,8 +1,49 @@
-// import { Router } from "express";
+import { Router } from "express";
+import Carts from "../dao/dbManagers/carts.managers.js";
 // import CartManager from "../managers/cart.manager.js";
 // import ProductManager from "../dao/fileManagers/products.manager.js";
 
 // // const cartManager = new CartManager("./managers/files/carrito.json")
+
+
+
+
+const router = Router();
+
+const cartsManager = new Carts();
+
+//TRABAJANDO CON BD
+
+router.get("/", async (req,res)=>{
+    try {
+       const carts = await cartsManager.getAll();
+       res.send({status: "success", payload: carts}); 
+    } catch (error) {
+        res.status(500).send({status: "error", message: error.message});
+    }
+});
+
+
+router.post("/", async (req,res)=>{
+    try {
+     const {title, description, price, products} = req.body;
+     if(!title || !description || !price || !products){
+         return res.status(400).send({status: "error", message: "incomplete values"})
+     }
+     const result = await cartsManager.save({
+         title,
+         description,
+         price
+     });
+     //En el post estoy creando un nuevo recurso, por lo que debo devolver un 201;
+     res.status(201).send({status: "success", payload: result});
+    } catch (error) {
+     res.status(500).send({status: "error", message: error.message});
+    } 
+ });
+
+
+
 
 // const router = Router();
 // const carts = [];
@@ -41,4 +82,4 @@
 
 
 
-// export default router;
+export default router;

@@ -1,10 +1,12 @@
 import express from "express";
 import productsRouter from "./routes/products.router.js";
+import cartsRouter from "./routes/carts.router.js"
 // import coursesRouter from "./routes/courses.router.js";
 // import viewsRouter from "./routes/views.router.js";
 import handlebars from "express-handlebars";
 import mongoose from "mongoose";
 import __dirname from "./utils.js";
+import viewsRouter from "./routes/views.router.js";
 
 
 // import routerProducts from "./routes/products.router.js"
@@ -14,12 +16,14 @@ import __dirname from "./utils.js";
 const app = express();
 app.use(express.json());
 
+//Direccion para ver los productos en el navegador
+app.use("/", viewsRouter);
+
+//Direccion para acceder por postman
 app.use("/api/products", productsRouter );
 
-// app.use("/api/carts", routerCart);
-
-//Mostrar
-// app.listen(8080, () => console.log("Listening on 8080"));
+//Direccion para acceder por postman
+app.use("/api/carts", cartsRouter );
 
 
 
@@ -31,10 +35,6 @@ app.engine("handlebars", handlebars.engine());
 app.set("views", `${__dirname}/views`);
 app.set("view engine", "handlebars");
 
-// app.use("/", viewsRouter);
-// app.use("/api/students", studentsRouter);
-// app.use("/api/courses", coursesRouter);
-
 
 //Conexion con la base de datos
 try {
@@ -44,7 +44,7 @@ try {
 } catch (error) {
     console.log(error.message);
 }
-
+//Mostrar
 app.listen(8080, ()=> console.log("Server runing"));
 
 
