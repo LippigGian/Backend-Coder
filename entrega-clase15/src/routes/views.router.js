@@ -1,9 +1,11 @@
 import {Router} from "express";
 import Products from "../dao/dbManagers/products.managers.js";
 import Carts from "../dao/dbManagers/carts.managers.js"
+import Message from "../dao/dbManagers/messages.managers.js";
 
 
 const router = Router();
+const messagesManager = new Message ();
 const productsManager = new Products();
 const cartsManager = new Carts();
 
@@ -26,13 +28,14 @@ router.get("/carts-view", async (req, res)=>{
         console.log(error.message);
     }
 });
-// router.get("/courses-view", async (req, res)=>{
-//     try {
-//         const courses = await coursesManager.getAll();
-//         res.render("courses", {courses})
-//     } catch (error) {
-//         console.log(error.message);
-//     }
-// });
+router.get("/messages", async (req, res)=>{
+    try {
+        const messages = await messagesManager.getAll();
+        res.render("messages", {messages})
+    } catch (error) {
+        console.log(error.message);
+    }
+});
+
 
 export default router;

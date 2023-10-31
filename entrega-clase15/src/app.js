@@ -1,16 +1,13 @@
 import express from "express";
 import productsRouter from "./routes/products.router.js";
 import cartsRouter from "./routes/carts.router.js"
-// import coursesRouter from "./routes/courses.router.js";
-// import viewsRouter from "./routes/views.router.js";
 import handlebars from "express-handlebars";
 import mongoose from "mongoose";
 import __dirname from "./utils.js";
 import viewsRouter from "./routes/views.router.js";
+import {Server} from "socket.io";
+import Message from "./dao/dbManagers/messages.managers.js"
 
-
-// import routerProducts from "./routes/products.router.js"
-// import routerCart from "./routes/carts.router.js";
 
 
 const app = express();
@@ -45,24 +42,65 @@ try {
     console.log(error.message);
 }
 //Mostrar
-app.listen(8080, ()=> console.log("Server runing"));
+const server = app.listen(8080, ()=> console.log("Server runing"));
 
 
 
 
 
+//ANTERIOR
 
 
 
-//Cosas a hacer:
+//Servidor archivos estaticos:
+app.use(express.static(`${__dirname}/public`));
 
-//Crear una base de datos llamada “ecommerce” dentro de tu Atlas, crear sus colecciones “carts”, “messages”, “products” y sus respectivos schemas.
-//Check; falta llenar los archivos con su logica interna
 
-//Reajustar los servicios con el fin de que puedan funcionar con Mongoose en lugar de FileSystem
-//Hay que modificar los routes para que trabajen con la base de datos y no con filesystem
-//Check; Falta cambiar la logica interna.
+//Configuracion del socket
+const socketServer = new Server(server);
 
-//Implementar una vista nueva en handlebars llamada chat.handlebars, la cual permita implementar un chat como el visto en clase. 
-//Los mensajes deberán guardarse en una colección “messages” en mongo (no es necesario implementarlo en FileSystem). 
-//El formato es:  {user:correoDelUsuario, message: mensaje del usuario}
+//Mensajes de nuestros clientes que se van a ir guardando
+ const messages = [];
+ const myArray = [];
+
+ //Funcion para que no se me vaya guardando por duplicado los mensajes en la BD.
+ function agregarUltimoElemento(elemento) {
+   // Eliminar el último elemento (si existe)
+   if (myArray.length > 0) {
+     myArray.pop();
+   } 
+   myArray.push(elemento);
+ }
+
+//configuracion con el servidor
+socketServer.on("connection", socket =>{
+//Mostrar cuando se conecta un nuevo cliente
+console.log("Nuevo cliente conectado");
+
+socket.on("message", data=>{
+    //leemos el evento "message" recibido desde index.js y manejamos la data.
+    messages.push(data);
+    agregarUltimoElemento(data)
+    //Guardamos en la BDD
+    const message = new Message({
+        user: data.user,
+        message: data.message,
+        timestamp: new Date(),
+      });
+    message.save(myArray)
+
+    //Enviamos a todos los clientes el mensaje, luego restaria solo "pintarlos en pantalla"
+    socketServer.emit("messageLogs", messages)
+});
+
+
+
+
+//Escuchar cuando se conecta un nuevo cliente.
+socket.on("authenticated", data => {
+//Cuando se conecta le voy a mostrar todos los mensajes al nuevo cliente que recien se conecta, no a todos.
+socket.emit("messageLogs", messages);
+//Mostrar nuevo usuario conectado 
+socket.broadcast.emit("newUserConnected", data);
+})
+});
